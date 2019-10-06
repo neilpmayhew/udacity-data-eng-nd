@@ -47,7 +47,7 @@ fact table, with each record representing a song play and four dimension tables 
 ### Fact table
 Note: songplay_id uses the serial data type which is an autoincrementing integer. This means that postgreSQL will handle the population of this
 field and we will not supply it in out insert statement for this table.
-
+```
 songplays:
     songplay_id serial PRIMARY KEY
     start_time timestamp REFERENCES time(start_time)
@@ -58,9 +58,9 @@ songplays:
     session_id int
     location varchar
     user_agent varchar
-    
+```    
 ### Dimension tables
-
+```
 users:
   user_id int PRIMARY KEY
   first_name varchar
@@ -90,7 +90,7 @@ time:
   month int
   year int
   weekday varchar
-  
+```  
   
 ## ETL pipeline
 
@@ -103,7 +103,7 @@ the given filepath for .JSON files and call the given file processing function f
 
 #### process_song_file
 
-Takes path to a JSON file and a cursor. Using pandas read_json function it reads in the data as a data frame. Then for the artists and songs tables it selects the appropriate values as a python list which it supplies as parameters along with an sql INSERT statement template to the cursor to execute write data into the database.
+Takes path to a JSON file and a cursor. Using pandas read_json function it reads in the data as a data frame. Then for the artists and songs tables it selects the appropriate values as a python list which it supplies as parameters along with an sql INSERT statement template to the cursor to execute and write data into the database.
 
 #### process_log_file
 
