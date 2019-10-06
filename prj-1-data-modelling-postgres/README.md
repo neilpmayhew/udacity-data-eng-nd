@@ -2,8 +2,7 @@
 
 ## Objective
 
-To create a database to enable the Sparkify analytics team to easily query the JSON log and metadata files collected from their streaming music app. The key goal of this 
-database is to support queries that will allow the analysts to understand the songs that their users are listening to.
+To create a database to enable the Sparkify analytics team to easily query the JSON log and metadata files collected from their streaming music app. The key goal of this database is to support queries that will allow the analysts to discover the songs that their users are listening to.
 
 ## Source Datasets
 
