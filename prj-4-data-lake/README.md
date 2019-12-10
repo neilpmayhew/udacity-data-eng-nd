@@ -16,12 +16,11 @@ To aid performance we will use the partitioning feature of parquet files. `songp
 ## How to run
 1. etl.py and dl.cfg should be copied to your AWS EMR instance (scp is simple way to do this)
 2. Edit dl.cfg to supply the AWS Access Key and AWS Secret Access Key
-3. Edit etl.py, edit the main function to set the output_data variable to the s3 bucket where you want the output files to be written 
-4. Run etl.py as you would a normal python script `python etl.py`
+3. Run etl.py as you would a normal python script passing in the required command line arguments for input_data and output_data `python etl.py --input_data s3a://udacity-dend/ --output_data s3a://your-bucket-name-here`` `
 
 ## ETL Pipeline function
 
-main() - the main function executed when the script is executed with python from the command line
+main() - the main function executed when the script is executed with python from the command line it parses the required command line arguements, creates a spark session and runs the two ETL functions
 
 create_spark_session() - function to create a spark session needed by the two main etl functions with the necessary config options enabled to work with aws and S3
 

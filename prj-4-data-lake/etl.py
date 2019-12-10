@@ -4,6 +4,7 @@ import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, col
 from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format,from_unixtime,monotonically_increasing_id
+import argparse
 
 
 config = configparser.ConfigParser()
@@ -32,7 +33,7 @@ def process_song_data(spark, input_data, output_data):
     Args:
 
     spark (SparkSession): spark session object
-    input_data (string): s3 bucket uri from which to read song and log josn data files
+    input_data (string): s3 bucket uri from which to read song and log json data files
     output_data (string): s3 bucket uri to write fact and dimension parquet files``
     """
     # get filepath to song data file
@@ -68,7 +69,7 @@ def process_log_data(spark, input_data, output_data):
     Args:
 
     spark (SparkSession): spark session object
-    input_data (string): s3 bucket uri from which to read song and log josn data files
+    input_data (string): s3 bucket uri from which to read song and log json data files
     output_data (string): s3 bucket uri to write fact and dimension parquet files``
     """
     # get filepath to log data file
@@ -130,9 +131,16 @@ def process_log_data(spark, input_data, output_data):
 
 def main():
     """main function to extract and trasform song and log data json files into fact and dimensional parquet files in the output s3 bucket"""
+    ap = argparse.ArgumentParser()
+
+    ap.add_argument('--input_data',required=True)
+    ap.add_argument('--output_data',required=True)
+    args = vars(ap.parse_args())
+
+    input_data = args['input_data'] 
+    output_data = args['output_data']
+
     spark = create_spark_session()
-    input_data = "s3a://udacity-dend/"
-    output_data = ""
 
     process_song_data(spark, input_data, output_data)
     process_log_data(spark, input_data, output_data)
