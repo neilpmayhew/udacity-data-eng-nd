@@ -16,7 +16,7 @@ To aid performance we will use the partitioning feature of parquet files. `songp
 ## How to run
 1. etl.py and dl.cfg should be copied to your AWS EMR instance (scp is simple way to do this)
 2. Edit dl.cfg to supply the AWS Access Key and AWS Secret Access Key
-3. Run etl.py as you would a normal python script passing in the required command line arguments for input_data and output_data `python etl.py --input_data s3a://udacity-dend/ --output_data s3a://your-bucket-name-here`` `
+3. Run etl.py as you would a normal python script passing in the required command line arguments for input_data and output_data buckets `python etl.py --input_data s3a://udacity-dend/ --output_data s3a://your-bucket-name-here`` `
 
 ## ETL Pipeline function
 
