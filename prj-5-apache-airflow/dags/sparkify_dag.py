@@ -11,7 +11,7 @@ from helpers import SqlQueries,get_data_quality_queries
 
 default_args = {
     'owner': 'NeilPMayhew',
-    'start_date': 'now',
+    'start_date': datetime(2018, 11, 1),
     'depends_on_past':False,
     'retries':3,
     'retry_delay': timedelta(minutes=5),
@@ -31,14 +31,15 @@ with DAG('Sparkify_dag',
           schedule_interval='@hourly',
           catchup=False,
         ) as dag:
-
+    
     start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
-
+    
     stage_events_to_redshift = StageToRedshiftOperator(
         task_id='Stage_events',
         s3_region=s3_region,
         s3_bucket=s3_bucket,
-        s3_key='log_data',
+        s3_key='log_data/{{ execution_date.strftime("%Y") }}/{{ execution_date.strftime("%m") }}/{{ ds }}-events.json',
+        #s3_key='log_data',
         redshift_conn_id=redshift_conn_id,
         aws_credentials_id=aws_credentials_id,
         s3_format='JSON',
@@ -55,7 +56,8 @@ with DAG('Sparkify_dag',
         aws_credentials_id=aws_credentials_id,
         s3_format='JSON',
         s3_format_args="'auto'",
-        staging_table='staging_songs'
+        staging_table='staging_songs',
+        execution_date = None
     )
 
     load_songplays_table = LoadFactOperator(

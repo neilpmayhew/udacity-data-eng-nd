@@ -15,7 +15,7 @@ class DataQualityOperator(BaseOperator):
     
     redshift_conn_id=connection id of the redshift db to run the queries against
     
-    data_quality_queries=Dict of data quality queries the key is test name, the value the querty to be run
+    data_quality_queries=Python Dict of data quality queries the key is test name, the value the querty to be run
     """
     ui_color = '#89DA59'
 

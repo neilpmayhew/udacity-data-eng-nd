@@ -3,7 +3,15 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
 class LoadDimensionOperator(BaseOperator):
-
+    """
+    Custom operator to load a dimensional table from a staging table.
+    
+    args:
+        redshift_conn_id: the connection id for the redshift connection stored in airflow
+        sql_query: select query returning a result set that will be inserted into the target_table
+        target_table: target_table into which to insert results
+        truncate: enable with delete-insert or append operation.If true the table will be truncated first before inserting from the sql_query
+    """
     ui_color = '#80BD9E'
 
     @apply_defaults

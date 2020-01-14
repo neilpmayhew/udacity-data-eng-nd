@@ -3,7 +3,14 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
 class LoadFactOperator(BaseOperator):
-
+    """
+    Custom operator to load a fact table from a staging table.
+    
+    args:
+        redshift_conn_id: the connection id for the redshift connection stored in airflow
+        sql_query: select query returning a result set that will be inserted into the target_table
+        target_table: target_table into which to insert results
+    """
     ui_color = '#F98866'
 
     @apply_defaults
